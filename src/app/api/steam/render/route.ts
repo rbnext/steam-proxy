@@ -26,6 +26,6 @@ export const POST = async (request: Request) => {
   } catch (error) {
     console.log(error)
 
-    return NextResponse.json({ status: 500 })
+    return NextResponse.json('TIMEOUT_ERROR', { status: 500 })
   }
 }
