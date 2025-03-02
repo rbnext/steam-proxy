@@ -39,6 +39,18 @@ export type SteamMarketRender = {
   }
 }
 
+export type SteamMarketSearchRenderItem = {
+  sell_price: number
+  sell_listings: number
+  asset_description: {
+    market_hash_name: string
+  }
+}
+
+export type SteamMarketSearchRender = {
+  results: SteamMarketSearchRenderItem[]
+}
+
 export type MapSteamMarketRenderResponse = {
   price: number | null
   listingId: string

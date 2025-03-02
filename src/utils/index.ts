@@ -1,4 +1,4 @@
-import { MapSteamMarketRenderResponse, SteamMarketRender } from '@/types'
+import { MapSteamMarketRenderResponse, SteamMarketRender, SteamMarketSearchRender } from '@/types'
 
 export const getInspectLink = (link: string, assetId: string, listingId: string): string => {
   return link.replace('%assetid%', assetId).replace('%listingid%', listingId)
@@ -33,4 +33,12 @@ export const mapSteamMarketRenderResponse = (data: SteamMarketRender) => {
 
     return [...acc, { price, listingId, pattern, stickers, inspectUrl }]
   }, [])
+}
+
+export const mapSteamMarketSearchRenderResponse = (data: SteamMarketSearchRender) => {
+  return data.results.map((item) => ({
+    sellPrice: item.sell_price,
+    sellListings: item.sell_listings,
+    marketHashName: item.asset_description.market_hash_name,
+  }))
 }
