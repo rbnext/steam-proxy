@@ -1,31 +1,31 @@
 import { mapSteamMarketRenderResponse } from '@/utils'
+import axios from 'axios'
 import { NextResponse } from 'next/server'
 import UserAgent from 'user-agents'
 
 export const POST = async (request: Request) => {
-  const { url } = await request.json()
+  const { market_hash_name, filter } = await request.json()
 
-  try {
-    const response = await fetch(url, {
+  const { data } = await axios.get(
+    `https://steamcommunity.com/market/listings/730/${encodeURIComponent(market_hash_name)}/render/`,
+    {
+      params: {
+        start: 0,
+        count: 10,
+        country: 'BY',
+        language: 'english',
+        currency: 1,
+        filter,
+      },
       headers: {
-        'User-Agent': new UserAgent().toString(),
         Host: 'steamcommunity.com',
-        Origin: 'https://steamcommunity.com',
-        Referer: 'https://steamcommunity.com/',
+        Referer: `https://steamcommunity.com/market/listings/730/` + encodeURIComponent(market_hash_name),
+        'User-Agent': new UserAgent().toString(),
       },
       signal: AbortSignal.timeout(5_000),
-    })
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`)
+      timeout: 5_000,
     }
+  )
 
-    const data = await response.json()
-
-    return NextResponse.json(mapSteamMarketRenderResponse(data))
-  } catch (error) {
-    console.log(error)
-
-    return NextResponse.json('TIMEOUT_ERROR', { status: 500 })
-  }
+  return NextResponse.json(mapSteamMarketRenderResponse(data))
 }
