@@ -19,7 +19,7 @@ export const POST = async (request: Request) => {
         appid: 730,
         'category_730_Exterior[]': ['tag_WearCategory0', 'tag_WearCategory1', 'tag_WearCategory2'],
         'category_730_Weapon[]': ['any'],
-        'category_730_Quality[]': ['tag_strange', 'tag_strange'],
+        'category_730_Quality[]': ['tag_strange', 'tag_normal'],
         'category_730_Rarity[]': [
           'tag_Rarity_Mythical_Weapon',
           'tag_Rarity_Legendary_Weapon',
