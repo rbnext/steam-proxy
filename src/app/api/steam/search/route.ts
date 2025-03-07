@@ -4,11 +4,11 @@ import { NextResponse } from 'next/server'
 import UserAgent from 'user-agents'
 
 export const POST = async (request: Request) => {
-  const { start, count } = await request.json()
+  const { start, count, query } = await request.json()
 
   const { data } = await axios.get('https://steamcommunity.com/market/search/render/', {
     params: {
-      query: 'Sticker',
+      query,
       start,
       count,
       norender: 1,
